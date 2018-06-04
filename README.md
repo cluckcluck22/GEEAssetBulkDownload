@@ -13,7 +13,9 @@ This project is set up as two scripts that run in parallel. This was done during
 
 1)AssetMirrorScriptV2.py: This script creates a local tree structure of the project with a temp text file representing the location of all images that are found in your GEE Assets. After this is done the system will make a list of all of the temp files and will create an export task for each of the images to be uplaoded from the GEE to Cloud Storage. Once a task is created, the asset path is saved into a locally created tasks file that is used to track which tasks have been started. An example of calling the script can be found below:
 
-
+//Note add call here
 
 
 2)ImageDownloadFromCloudStorage.py This script takes files that have been uplaoded to the cloud storage and downloads them to the local file location set up by the AssetMirrorScriptV2.py script. Please note the script creates a folder of where the image was on the GEE Asset storage and stores the exported image within it, due to how some exported images are exported into multiple files. It uses the tasks file created by the mentioned script to determine what images should be searched for on the Cloud Storage, along with the bash command "earthengine task list". An example of calling the script can be found below:
+
+//Note add call here
