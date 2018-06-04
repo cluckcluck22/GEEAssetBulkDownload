@@ -21,7 +21,7 @@ def getListOfEERunningTasks():
 	allEETasks = subprocess.Popen(["earthengine","task","list"],stdout=subprocess.PIPE).stdout.read().splitlines()
 	incompleteEETasks = []
 	for elementOfAllEETasks in allEETasks:
-		if "COMPLETED" not in elementOfAllEETasks:
+		if "COMPLETED" not in elementOfAllEETasks and "FAILED" not in elementOfAllEETasks and "CANCELLED" not in elementOfAllEETasks:
 			#incompleteEETasks.append(elementOfAllEETasks.split(" ")[4])
 			elementDataForEE = subprocess.Popen(["earthengine","task","info",elementOfAllEETasks.split(" ")[0]],stdout=subprocess.PIPE).stdout.read().splitlines()[3].split(": ")[1]
 			incompleteEETasks.append(elementDataForEE)
