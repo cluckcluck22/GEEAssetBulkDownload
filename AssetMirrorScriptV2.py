@@ -77,7 +77,6 @@ if(not os.path.exists(folderPath + "/" + ALLDONE)):
     allObjects = allFilesAndDirs.stdout.read().splitlines()
 
     for i in allObjects:
-        
         itemInfo = subprocess.Popen(["earthengine","asset","info",i],stdout=subprocess.PIPE).stdout.read()
         itemJson = json.loads(itemInfo)
         print(itemJson)
@@ -122,37 +121,40 @@ while (getNumberOfEERunningTasks() > MaximumNumberOfTasks):
 
 #Loop over all not done files
 for aNoteDoneFileName in allNoteDoneFilesList:
-	print(aNoteDoneFileName)
-	name = aNoteDoneFileName.split("/")[-1]
-	print(name)
+	try:
+		print(aNoteDoneFileName)
+		name = aNoteDoneFileName.split("/")[-1]
+		print(name)
 
-	#Check if tasks started for item
-	if aNoteDoneFileName in content:
-		print("Task already done")
-	else:
-		print("Task not completed")
-		img = ee.Image(aNoteDoneFileName)
-		exportName = aNoteDoneFileName.split('/')[-1]
-		imgScale = img.projection().nominalScale().round().getInfo()
+		#Check if tasks started for item
+		if aNoteDoneFileName in content:
+			print("Task already done")
+		else:
+			print("Task not completed")
+			img = ee.Image(aNoteDoneFileName)
+			exportName = aNoteDoneFileName.split('/')[-1]
+			imgScale = img.projection().nominalScale().round().getInfo()
 
-		task = ee.batch.Export.image.toCloudStorage(
-			image = img,
-			scale = imgScale,
-			bucket = CloudStorageBucketName,
-			description = exportName,
-			fileNamePrefix = aNoteDoneFileName +"/"+ exportName,
-			maxPixels = 1000000000000,
-			)
-		print(aNoteDoneFileName + "/" + exportName)
-		taskFile = open("tasks.txt","a+")
-		taskFile.write(aNoteDoneFileName + "\n")
-		taskFile.close()
-		print("Start Export")
-		task.start()
-		print(task.status())
-		while (getNumberOfEERunningTasks() > MaximumNumberOfTasks):
-			print("Too many tasks running, waiting "+ str(TimeToSleepBetweenRuns/60) +" minutes before continuing")
-			time.sleep(TimeToSleepBetweenRuns)
+			task = ee.batch.Export.image.toCloudStorage(
+				image = img,
+				scale = imgScale,
+				bucket = CloudStorageBucketName,
+				description = exportName,
+				fileNamePrefix = aNoteDoneFileName +"/"+ exportName,
+				maxPixels = 1000000000000,
+				)
+			print(aNoteDoneFileName + "/" + exportName)
+			taskFile = open("tasks.txt","a+")
+			taskFile.write(aNoteDoneFileName + "\n")
+			taskFile.close()
+			print("Start Export")
+			task.start()
+			print(task.status())
+			while (getNumberOfEERunningTasks() > MaximumNumberOfTasks):
+				print("Too many tasks running, waiting "+ str(TimeToSleepBetweenRuns/60) +" minutes before continuing")
+				time.sleep(TimeToSleepBetweenRuns)
+	except:
+		print("Error with file")
     #wait to see if the number of running tasks is less than 50
 
 	
