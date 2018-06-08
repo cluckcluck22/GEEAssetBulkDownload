@@ -18,4 +18,4 @@ python AssetMirrorScriptV2.py users/alemlakes /Volumes/Big-Cloud-Work/GoogleDriv
 
 2)ImageDownloadFromCloudStorage.py This script takes files that have been uplaoded to the cloud storage and downloads them to the local file location set up by the AssetMirrorScriptV2.py script. Please note the script creates a folder of where the image was on the GEE Asset storage and stores the exported image within it, due to how some exported images are exported into multiple files. It uses the tasks file created by the mentioned script to determine what images should be searched for on the Cloud Storage, along with the bash command "earthengine task list". An example of calling the script can be found below:
 
-//Note add call here
+python ImageDownloadFromCloudStorage.py tasks.txt /Volumes/Big-Cloud-Work/GoogleDrives/alem.lakes/0.3.AssetMirrorComplete/
