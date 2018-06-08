@@ -14,7 +14,7 @@ import json
 import time
 
 TimeToSleepBetweenRuns = 200	#Number of seconds
-MaximumNumberOfTasks = 10
+MaximumNumberOfTasks = 20
 CloudStorageBucketName = "bulcstorage"
 
 
@@ -71,25 +71,8 @@ for x in xrange(1,len(repoSplit)):
 ###########Make .notDone.txt Files#############
 print("Checking if all notDone files created:" + folderPath + "/" + ALLDONE)
 if(not os.path.exists(folderPath + "/" + ALLDONE)):
-
-    allFilesAndDirs = subprocess.Popen(["earthengine","ls","-r", repo], stdout=subprocess.PIPE)
-    #allFilesAndDirs = subprocess.Popen(["cat","./output.txt"],stdout=subprocess.PIPE)
-    allObjects = allFilesAndDirs.stdout.read().splitlines()
-
-    for i in allObjects:
-        itemInfo = subprocess.Popen(["earthengine","asset","info",i],stdout=subprocess.PIPE).stdout.read()
-        itemJson = json.loads(itemInfo)
-        print(itemJson)
-        if(itemJson['type'] == 'Folder'):
-            print(itemJson['id'] + " Folder")
-            if(not os.path.exists(syncRepository + "/" + itemJson['id'])):
-                os.makedirs(syncRepository + "/" + itemJson['id'])
-        else:
-            print(itemJson['id'] + " Not Folder")
-            if(not os.path.exists(syncRepository + "/" + itemJson['id'] + ".notDone.txt")):
-                touch(syncRepository + "/" + itemJson['id']+ ".notDone.txt")
-
-    touch(folderPath+"/" + ALLDONE)
+	print("Not all not done files created, please run CreateNotDoneFiles before running this file.")
+	sys.exit()
 else:
     print("all notDone files created")
 ###########End Make .notDone.txt Files##########
@@ -153,6 +136,8 @@ for aNoteDoneFileName in allNoteDoneFilesList:
 			while (getNumberOfEERunningTasks() > MaximumNumberOfTasks):
 				print("Too many tasks running, waiting "+ str(TimeToSleepBetweenRuns/60) +" minutes before continuing")
 				time.sleep(TimeToSleepBetweenRuns)
+	except KeyboardInterrupt:
+		sys.exit()
 	except:
 		print("Error with file")
     #wait to see if the number of running tasks is less than 50
