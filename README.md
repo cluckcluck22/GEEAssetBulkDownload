@@ -17,7 +17,7 @@ This project is set up as two scripts that run in parallel. This was done during
 
 python CreateNotDoneFiles.py users/alemlakes /Volumes/Big-Cloud-Work/GoogleDrives/alem.lakes/0.3.AssetMirrorComplete/
 
-2)AssetMirrorScriptV2.py: The script makes a list of all of the temp files and will create an export task for each of the images to be uplaoded from the GEE to Cloud Storage. Once a task is created, the asset path is saved into a locally created tasks file that is used to track which tasks have been started. The script has options to modify the max number of tasks to try and export, along with the amount of seconds to wait between each upload attempt. An example of calling the script can be found below:
+2)AssetMirrorScriptV2.py: The script makes a list of all of the temp files and will create an export task for each of the images to be uplaoded from the GEE to Cloud Storage. Once a task is created, the asset path is saved into a locally created tasks file that is used to track which tasks have been started. The script has options to modify the max number of tasks to try and export, along with the amount of seconds to wait between each upload attempt. Please note that you will need to change the bucket name for this script to work for you. An example of calling the script can be found below:
 
 python AssetMirrorScriptV2.py users/alemlakes /Volumes/Big-Cloud-Work/GoogleDrives/alem.lakes/0.3.AssetMirrorComplete/
 
