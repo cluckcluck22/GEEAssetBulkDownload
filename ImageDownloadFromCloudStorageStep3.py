@@ -89,14 +89,14 @@ while len(listOfNotDoneFiles) > 0:
 				print(imgName + " has been added but not run yet, skipping for now")
 			else:
 				print("image ready to be downloaded")
-				print(aNotDoneFile.replace(localStorageLocationForFiles,cloudStorageBucketName))
-				existenceCheck = subprocess.Popen(["gsutil","du",aNotDoneFile.replace(localStorageLocationForFiles,cloudStorageBucketName)],stdout=subprocess.PIPE).stdout.read()
+				print(aNotDoneFile.replace(localStorageLocationForFiles,CloudStorageBucketName))
+				existenceCheck = subprocess.Popen(["gsutil","du",aNotDoneFile.replace(localStorageLocationForFiles,CloudStorageBucketName)],stdout=subprocess.PIPE).stdout.read()
 				if len(existenceCheck) > 0:
 					print("File found on cloud storage, downloading now")
 					outputLocation = aNotDoneFile.replace(imgName,".")
 					print(outputLocation)
-					subprocess.Popen(["gsutil","cp","-r",aNotDoneFile.replace(localStorageLocationForFiles,cloudStorageBucketName),outputLocation],stdout=subprocess.PIPE).stdout.read()
-					subprocess.Popen(["gsutil","rm","-r",aNotDoneFile.replace(localStorageLocationForFiles,cloudStorageBucketName)],stdout=subprocess.PIPE).stdout.read()
+					subprocess.Popen(["gsutil","cp","-r",aNotDoneFile.replace(localStorageLocationForFiles,CloudStorageBucketName),outputLocation],stdout=subprocess.PIPE).stdout.read()
+					subprocess.Popen(["gsutil","rm","-r",aNotDoneFile.replace(localStorageLocationForFiles,CloudStorageBucketName)],stdout=subprocess.PIPE).stdout.read()
 					os.remove(aNotDoneFile + ".notDone.txt")
 				else:
 					print("File not found on cloud storage")
