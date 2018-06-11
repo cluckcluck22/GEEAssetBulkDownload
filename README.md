@@ -1,4 +1,4 @@
-# GEEAssetDuplication
+# GEEAssetBulkDownload
 A set of scripts that can synchronize server side Google Earth Engine assets to local storage location. Please note this method uses the Google Cloud Storage in order to serve as an intermediate storage location for the GEE assets to be stored to before they can be downloaded to a local location.
 
 # Requirements
